@@ -1,101 +1,370 @@
-import { certifications, education, roles, skills } from "./career"
+import { certifications, currentRole, education, experiences, skills } from "./career"
 import { formatDate } from "./formatDate"
+import { Icons, issuerIcon, skillIcon } from "./icons"
 import { projects } from "./projects"
+import { ThemeToggle } from "./ThemeToggle"
+import { useTheme } from "./useTheme"
 
 const cvHref = `${import.meta.env.BASE_URL}Lalit-Sekhar-Behera.pdf`
 
 const timeline = [...projects].sort((a, b) => b.created.localeCompare(a.created))
+const featured = timeline.slice(0, 2)
+const rest = timeline.slice(2)
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme()
+
   return (
-    <div className="shell">
-      <aside>
-        <header className="identity">
-          <p className="kicker">Bangalore · Open to relocate</p>
-          <h1>Lalit Sekhar Behera</h1>
-          <p className="lede">
-            Full-stack engineer. React, TypeScript, and services for enterprise SaaS.
-          </p>
-          <p className="contact">
-            <a href="mailto:lalitsekhar1999@gmail.com">Email</a>
-            <a href="https://www.linkedin.com/in/lalit-sekhar">LinkedIn</a>
-            <a href="https://github.com/LALIT-SEKHAR">GitHub</a>
-            <a href={cvHref}>CV</a>
-          </p>
-        </header>
+    <div className="page">
+      <a className="skip" href="#work">
+        Skip to projects
+      </a>
 
-        <section id="career" aria-labelledby="career-heading">
-          <h2 id="career-heading">Career</h2>
-          <ol className="roles">
-            {roles.map((role) => (
-              <li key={`${role.org}-${role.dates}`}>
-                <p className="role-dates">{role.dates}</p>
-                <h3>{role.title}</h3>
-                <p className="org">
-                  {role.org}
-                  <span> · {role.place}</span>
-                </p>
-                <ul>
-                  {role.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
-          <div className="study">
-            <h3>Education</h3>
-            <p>
-              {education.credential}, {education.school}
+      <div className="atmosphere" aria-hidden="true" />
+      <div className="grain" aria-hidden="true" />
+
+      <header className="nav-wrap">
+        <div className="nav">
+          <a className="nav-brand" href="#top">
+            <span className="nav-mark" aria-hidden="true">
+              L
+            </span>
+            Lalit Behera
+          </a>
+          <nav aria-label="Primary">
+            <a className="nav-link" href="#work">
+              <Icons.Stack size={16} weight="bold" aria-hidden="true" />
+              Work
+            </a>
+            <a className="nav-link" href="#career">
+              <Icons.Briefcase size={16} weight="bold" aria-hidden="true" />
+              Experience
+            </a>
+            <a className="nav-link" href="#contact">
+              <Icons.EnvelopeSimple size={16} weight="bold" aria-hidden="true" />
+              Contact
+            </a>
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
+            <a className="nav-cv" href={cvHref}>
+              <Icons.DownloadSimple size={16} weight="bold" aria-hidden="true" />
+              Download CV
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        <section className="hero" aria-labelledby="hero-name">
+          <div className="hero-copy">
+            <p className="status">
+              <span className="status-dot" aria-hidden="true" />
+              <Icons.MapPin size={14} weight="fill" aria-hidden="true" />
+              Open to roles · Bangalore
             </p>
-            <p className="org">
-              {education.place}
-              <span> · {education.dates}</span>
+            <h1 id="hero-name">Lalit Sekhar Behera</h1>
+            <p className="hero-lede">
+              Full-stack engineer shipping React, TypeScript, and services for enterprise SaaS
+              products.
             </p>
-            <h3>Certifications</h3>
-            <p>{certifications.join(" · ")}</p>
-            <h3>Skills</h3>
-            <p>{skills.join(" · ")}</p>
+            <div className="hero-actions">
+              <a className="btn-primary" href="#work">
+                View selected work
+                <span className="btn-icon" aria-hidden="true">
+                  <Icons.ArrowRight size={16} weight="bold" />
+                </span>
+              </a>
+              <a className="btn-ghost" href="mailto:lalitsekhar1999@gmail.com">
+                <Icons.EnvelopeSimple size={16} weight="bold" aria-hidden="true" />
+                Email me
+              </a>
+            </div>
           </div>
-          <p className="cv-note">
-            <a href={cvHref}>Open the CV</a>
-          </p>
-        </section>
-      </aside>
 
-      <main id="projects">
-        <header className="projects-head">
-          <h2>Projects</h2>
-          <p>Newest first.</p>
-        </header>
-        <ol className="timeline">
-          {timeline.map((project, index) => {
-            const year = project.created.slice(0, 4)
-            const previousYear = timeline[index - 1]?.created.slice(0, 4)
-            return (
-              <li key={project.name}>
-                {year !== previousYear ? <p className="year">{year}</p> : null}
-                <article>
-                  <p className="dates">
-                    <time dateTime={project.created}>Created {formatDate(project.created)}</time>
-                    <time dateTime={project.updated}>Updated {formatDate(project.updated)}</time>
-                  </p>
+          <aside className="hero-panel" aria-label="Current focus">
+            <p className="panel-label">
+              <Icons.Briefcase size={14} weight="bold" aria-hidden="true" />
+              Currently
+            </p>
+            <p className="panel-role">{currentRole.title}</p>
+            <p className="panel-org">
+              <Icons.Buildings size={15} weight="bold" aria-hidden="true" />
+              {currentRole.org}
+              <span> · {currentRole.place}</span>
+            </p>
+            <p className="panel-dates">
+              <Icons.CalendarBlank size={15} weight="bold" aria-hidden="true" />
+              {currentRole.dates}
+            </p>
+            <ul className="panel-skills">
+              {skills.slice(0, 5).map((skill) => {
+                const SkillIcon = skillIcon(skill)
+                return (
+                  <li key={skill}>
+                    <SkillIcon size={13} weight="bold" aria-hidden="true" />
+                    {skill}
+                  </li>
+                )
+              })}
+            </ul>
+          </aside>
+        </section>
+
+        <section id="work" className="section work" aria-labelledby="work-heading">
+          <div className="section-intro">
+            <h2 id="work-heading">
+              <Icons.Stack size={28} weight="bold" aria-hidden="true" />
+              Selected work
+            </h2>
+            <p>Product apps and experiments, newest first.</p>
+          </div>
+
+          <div className="featured">
+            {featured.map((project, index) => (
+              <article
+                key={project.name}
+                className={`featured-shell featured-shell--${index === 0 ? "lead" : "side"}`}
+              >
+                <div className={`featured-card featured-card--${index === 0 ? "lead" : "side"}`}>
+                  <div className="featured-top">
+                    <span className="featured-index">0{index + 1}</span>
+                    <p className="meta-line">
+                      <Icons.CalendarBlank size={13} weight="bold" aria-hidden="true" />
+                      <time dateTime={project.created}>{formatDate(project.created)}</time>
+                      <span aria-hidden="true">·</span>
+                      <span>Updated {formatDate(project.updated)}</span>
+                    </p>
+                  </div>
                   <h3>{project.name}</h3>
                   <p>{project.summary}</p>
                   <p className="links">
-                    {project.live ? <a href={project.live}>Live</a> : null}
+                    {project.live ? (
+                      <a className="link-chip link-chip--live" href={project.live}>
+                        <Icons.ArrowSquareOut size={14} weight="bold" aria-hidden="true" />
+                        Live demo
+                      </a>
+                    ) : null}
                     {project.repos.map((repo) => (
-                      <a key={repo.href} href={repo.href}>
+                      <a className="link-chip" key={repo.href} href={repo.href}>
+                        <Icons.GithubLogo size={14} weight="bold" aria-hidden="true" />
                         {repo.label}
                       </a>
                     ))}
                   </p>
-                </article>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <ol className="project-list">
+            {rest.map((project, index) => {
+              const year = project.created.slice(0, 4)
+              const previousYear = rest[index - 1]?.created.slice(0, 4)
+              return (
+                <li key={project.name}>
+                  {year !== previousYear ? <p className="year">{year}</p> : null}
+                  <article className="project-row">
+                    <div className="project-copy">
+                      <h3>{project.name}</h3>
+                      <p>{project.summary}</p>
+                    </div>
+                    <div className="project-meta">
+                      <p className="meta-line">
+                        <Icons.CalendarBlank size={13} weight="bold" aria-hidden="true" />
+                        <time dateTime={project.created}>{formatDate(project.created)}</time>
+                      </p>
+                      <p className="links">
+                        {project.live ? (
+                          <a className="link-chip link-chip--live" href={project.live}>
+                            <Icons.ArrowSquareOut size={14} weight="bold" aria-hidden="true" />
+                            Live
+                          </a>
+                        ) : null}
+                        {project.repos.map((repo) => (
+                          <a className="link-chip" key={repo.href} href={repo.href}>
+                            <Icons.GithubLogo size={14} weight="bold" aria-hidden="true" />
+                            {repo.label}
+                          </a>
+                        ))}
+                      </p>
+                    </div>
+                  </article>
+                </li>
+              )
+            })}
+          </ol>
+        </section>
+
+        <section id="career" className="section career" aria-labelledby="career-heading">
+          <div className="section-intro">
+            <h2 id="career-heading">
+              <Icons.Briefcase size={28} weight="bold" aria-hidden="true" />
+              Experience
+            </h2>
+            <p>Building and modernizing SaaS platforms end to end.</p>
+          </div>
+
+          <ol className="experience">
+            {experiences.map((company) => (
+              <li key={company.org} className="experience-item">
+                <div className="experience-rail">
+                  <span className="role-dot" aria-hidden="true" />
+                </div>
+                <div className="experience-body">
+                  <header className="experience-company">
+                    <h3>
+                      <Icons.Buildings size={18} weight="bold" aria-hidden="true" />
+                      {company.org}
+                    </h3>
+                    <p className="org">
+                      <Icons.MapPin size={14} weight="bold" aria-hidden="true" />
+                      {company.place}
+                    </p>
+                  </header>
+
+                  <ol className="positions">
+                    {company.positions.map((position) => (
+                      <li key={`${company.org}-${position.title}-${position.dates}`}>
+                        <div className="position-head">
+                          <h4>{position.title}</h4>
+                          <p className="role-dates">
+                            <Icons.CalendarBlank size={13} weight="bold" aria-hidden="true" />
+                            {position.dates}
+                          </p>
+                        </div>
+                        <ul>
+                          {position.points.map((point) => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </li>
-            )
-          })}
-        </ol>
+            ))}
+          </ol>
+
+          <div className="profile-extras">
+            <article className="edu-band">
+              <div className="edu-mark" aria-hidden="true">
+                <Icons.GraduationCap size={28} weight="bold" />
+              </div>
+              <div className="edu-copy">
+                <p className="edu-label">Education</p>
+                <h3>
+                  {education.credential}
+                  <span> · {education.school}</span>
+                </h3>
+                <p className="org">
+                  <Icons.MapPin size={14} weight="bold" aria-hidden="true" />
+                  {education.place}
+                  <span> · {education.dates}</span>
+                </p>
+              </div>
+            </article>
+
+            <div className="certs-block">
+              <div className="block-head">
+                <h3>
+                  <Icons.Certificate size={18} weight="bold" aria-hidden="true" />
+                  Certifications
+                </h3>
+                <p>{certifications.length} verified credentials</p>
+              </div>
+              <ul className="cert-grid">
+                {certifications.map((item) => {
+                  const IssuerIcon = issuerIcon(item.issuer)
+                  return (
+                    <li key={item.href}>
+                      <a className="cert-card" href={item.href} target="_blank" rel="noreferrer">
+                        <span className="cert-icon" aria-hidden="true">
+                          <IssuerIcon size={18} weight="bold" />
+                        </span>
+                        <span className="cert-copy">
+                          <span className="cert-name">
+                            {item.name}
+                            <Icons.ArrowSquareOut size={13} weight="bold" aria-hidden="true" />
+                          </span>
+                          <span className="cert-meta">
+                            {item.issuer}
+                            {item.issued ? ` · ${item.issued}` : null}
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+
+            <div className="skills-block">
+              <div className="block-head">
+                <h3>
+                  <Icons.Code size={18} weight="bold" aria-hidden="true" />
+                  Skills
+                </h3>
+                <p>Tools and stack used in production</p>
+              </div>
+              <ul className="skill-list">
+                {skills.map((skill) => {
+                  const SkillIcon = skillIcon(skill)
+                  return (
+                    <li key={skill}>
+                      <SkillIcon size={13} weight="bold" aria-hidden="true" />
+                      {skill}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="contact-band" aria-labelledby="contact-heading">
+          <div className="contact-inner">
+            <h2 id="contact-heading">Ready for the next role.</h2>
+            <p>Open to full-stack roles and product engineering work. Happy to relocate.</p>
+            <div className="hero-actions">
+              <a className="btn-primary btn-primary--on-dark" href="mailto:lalitsekhar1999@gmail.com">
+                <Icons.EnvelopeSimple size={16} weight="bold" aria-hidden="true" />
+                lalitsekhar1999@gmail.com
+              </a>
+              <a className="btn-ghost btn-ghost--on-dark" href={cvHref}>
+                <Icons.DownloadSimple size={16} weight="bold" aria-hidden="true" />
+                Download CV
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <footer className="footer">
+        <div>
+          <p className="footer-name">Lalit Sekhar Behera</p>
+          <p className="footer-note">
+            <Icons.MapPin size={14} weight="bold" aria-hidden="true" />
+            Bangalore · Open to relocate
+          </p>
+        </div>
+        <p className="contact">
+          <a href="mailto:lalitsekhar1999@gmail.com">
+            <Icons.EnvelopeSimple size={16} weight="bold" aria-hidden="true" />
+            Email
+          </a>
+          <a href="https://www.linkedin.com/in/lalit-sekhar">
+            <Icons.LinkedinLogo size={16} weight="bold" aria-hidden="true" />
+            LinkedIn
+          </a>
+          <a href="https://github.com/LALIT-SEKHAR">
+            <Icons.GithubLogo size={16} weight="bold" aria-hidden="true" />
+            GitHub
+          </a>
+          <a href={cvHref}>
+            <Icons.DownloadSimple size={16} weight="bold" aria-hidden="true" />
+            CV
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }

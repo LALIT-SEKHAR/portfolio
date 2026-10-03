@@ -15,7 +15,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: "Daybook",
-    summary: "A daily task list and journal, on the web and on mobile.",
+    summary: "Sign in and keep tasks in lists, with due dates, priorities, and a board. A dated journal can be locked with a PIN, and the same tasks open in the mobile app.",
     created: "2026-09-29",
     updated: "2026-10-02",
     live: "https://daybook-nine-tau.vercel.app/",
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   },
   {
     name: "Knowra",
-    summary: "Upload documents and ask questions about them in conversation.",
+    summary: "Upload documents into a workspace and ask questions about them in a chat. Files can sit in folders, and people can join an organization to share that workspace.",
     created: "2026-09-19",
     updated: "2026-09-30",
     live: "https://knowra-cyan.vercel.app",
@@ -38,7 +38,7 @@ export const projects: Project[] = [
   },
   {
     name: "Oliyo",
-    summary: "A messaging app.",
+    summary: "Create an account with an email and a username, then confirm the address before signing in. A list of people opens each profile.",
     created: "2022-03-06",
     updated: "2022-03-19",
     live: "https://oliyo-taupe.vercel.app",
@@ -46,7 +46,7 @@ export const projects: Project[] = [
   },
   {
     name: "React slider",
-    summary: "A React component for a slider.",
+    summary: "A React component that slides its children sideways. Arrows, dots, and an automatic interval can be turned on.",
     created: "2021-12-31",
     updated: "2022-01-22",
     repos: [
@@ -58,7 +58,7 @@ export const projects: Project[] = [
   },
   {
     name: "WebRTC mesh",
-    summary: "Group calls connected as a mesh of peers.",
+    summary: "Start a meet from the camera and microphone, then enter a room. The server remembers who is in that room and asks each new person to offer a connection to the others.",
     created: "2021-08-20",
     updated: "2021-08-27",
     repos: [
@@ -70,7 +70,7 @@ export const projects: Project[] = [
   },
   {
     name: "One to one video call",
-    summary: "A video call between two browsers.",
+    summary: "The page shows a WebRTC heading. Beside it, a small server file is set up to host a Socket.IO connection for a call between two browsers.",
     created: "2021-08-12",
     updated: "2021-08-19",
     repos: [
@@ -82,7 +82,7 @@ export const projects: Project[] = [
   },
   {
     name: "WebRTC media control",
-    summary: "Controls for media in a WebRTC call.",
+    summary: "Shows the camera on a canvas and lets you choose the video device and resolution. A meter follows how loud the microphone is.",
     created: "2021-07-30",
     updated: "2021-08-12",
     live: "https://webrtc-media-control.vercel.app",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
   },
   {
     name: "My own momentum",
-    summary: "A personal start page with the weather.",
+    summary: "A start page with the current time and a greeting that changes through the day. It asks for your location to show the weather, and fills the background with a nature photo.",
     created: "2020-08-14",
     updated: "2021-08-16",
     live: "https://my-own-momentom.vercel.app",
