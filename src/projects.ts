@@ -153,6 +153,7 @@ export const projects: Project[] = [
     name: "Oliyo",
     year: "2022",
     summary: "A messaging app.",
+    live: "https://oliyo-taupe.vercel.app",
     repos: [{ label: "Oliyo", href: "https://github.com/LALIT-SEKHAR/Oliyo" }],
   },
   {
