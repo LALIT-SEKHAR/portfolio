@@ -101,8 +101,13 @@ export const projects: Project[] = [
     name: "My own momentum",
     year: "2020",
     summary: "A personal start page with the weather.",
-    repos: [],
-    note: "Repository stays private because API keys are committed in it.",
+    live: "https://my-own-momentom.vercel.app",
+    repos: [
+      {
+        label: "my-own-momentom",
+        href: "https://github.com/LALIT-SEKHAR/my-own-momentom",
+      },
+    ],
   },
   {
     name: "WebRTC media control",
