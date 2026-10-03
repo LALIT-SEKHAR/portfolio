@@ -37,14 +37,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "Oliyo",
-    summary: "Create an account with an email and a username, then confirm the address before signing in. A list of people opens each profile.",
-    created: "2022-03-06",
-    updated: "2022-03-19",
-    live: "https://oliyo-taupe.vercel.app",
-    repos: [{ label: "Oliyo", href: "https://github.com/LALIT-SEKHAR/Oliyo" }],
-  },
-  {
     name: "React slider",
     summary: "A React component that slides its children sideways. Arrows, dots, and an automatic interval can be turned on.",
     created: "2021-12-31",
