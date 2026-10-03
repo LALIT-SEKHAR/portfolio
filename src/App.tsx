@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react"
 import { certifications, currentRole, education, experiences, skills } from "./career"
 import { formatDate } from "./formatDate"
 import { Icons, issuerIcon, skillIcon } from "./icons"
 import { projects } from "./projects"
+import { Reveal } from "./Reveal"
 import { ThemeToggle } from "./ThemeToggle"
 import { useTheme } from "./useTheme"
 
@@ -10,6 +12,8 @@ const cvHref = `${import.meta.env.BASE_URL}Lalit-Sekhar-Behera.pdf`
 const timeline = [...projects].sort((a, b) => b.created.localeCompare(a.created))
 const featured = timeline.slice(0, 2)
 const rest = timeline.slice(2)
+
+const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties
 
 export default function App() {
   const { theme, toggleTheme } = useTheme()
@@ -56,17 +60,19 @@ export default function App() {
       <main id="top">
         <section className="hero" aria-labelledby="hero-name">
           <div className="hero-copy">
-            <p className="status">
+            <p className="status reveal-item" style={delay(0)}>
               <span className="status-dot" aria-hidden="true" />
               <Icons.MapPin size={14} weight="fill" aria-hidden="true" />
               Open to roles · Bangalore
             </p>
-            <h1 id="hero-name">Lalit Sekhar Behera</h1>
-            <p className="hero-lede">
+            <h1 id="hero-name" className="reveal-item" style={delay(80)}>
+              Lalit Sekhar Behera
+            </h1>
+            <p className="hero-lede reveal-item" style={delay(160)}>
               Full-stack engineer shipping React, TypeScript, and services for enterprise SaaS
               products.
             </p>
-            <div className="hero-actions">
+            <div className="hero-actions reveal-item" style={delay(240)}>
               <a className="btn-primary" href="#work">
                 View selected work
                 <span className="btn-icon" aria-hidden="true">
@@ -80,7 +86,7 @@ export default function App() {
             </div>
           </div>
 
-          <aside className="hero-panel" aria-label="Current focus">
+          <aside className="hero-panel reveal-item" style={delay(280)} aria-label="Current focus">
             <p className="panel-label">
               <Icons.Briefcase size={14} weight="bold" aria-hidden="true" />
               Currently
@@ -110,19 +116,21 @@ export default function App() {
         </section>
 
         <section id="work" className="section work" aria-labelledby="work-heading">
-          <div className="section-intro">
+          <Reveal className="section-intro">
             <h2 id="work-heading">
               <Icons.Stack size={28} weight="bold" aria-hidden="true" />
               Selected work
             </h2>
             <p>Product apps and experiments, newest first.</p>
-          </div>
+          </Reveal>
 
           <div className="featured">
             {featured.map((project, index) => (
-              <article
+              <Reveal
                 key={project.name}
+                as="article"
                 className={`featured-shell featured-shell--${index === 0 ? "lead" : "side"}`}
+                delay={index * 90}
               >
                 <div className={`featured-card featured-card--${index === 0 ? "lead" : "side"}`}>
                   <div className="featured-top">
@@ -151,7 +159,7 @@ export default function App() {
                     ))}
                   </p>
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
 
@@ -160,7 +168,7 @@ export default function App() {
               const year = project.created.slice(0, 4)
               const previousYear = rest[index - 1]?.created.slice(0, 4)
               return (
-                <li key={project.name}>
+                <Reveal as="li" key={project.name} delay={Math.min(index, 6) * 40}>
                   {year !== previousYear ? <p className="year">{year}</p> : null}
                   <article className="project-row">
                     <div className="project-copy">
@@ -188,24 +196,24 @@ export default function App() {
                       </p>
                     </div>
                   </article>
-                </li>
+                </Reveal>
               )
             })}
           </ol>
         </section>
 
         <section id="career" className="section career" aria-labelledby="career-heading">
-          <div className="section-intro">
+          <Reveal className="section-intro">
             <h2 id="career-heading">
               <Icons.Briefcase size={28} weight="bold" aria-hidden="true" />
               Experience
             </h2>
             <p>Building and modernizing SaaS platforms end to end.</p>
-          </div>
+          </Reveal>
 
           <ol className="experience">
-            {experiences.map((company) => (
-              <li key={company.org} className="experience-item">
+            {experiences.map((company, index) => (
+              <Reveal as="li" key={company.org} className="experience-item" delay={index * 80}>
                 <div className="experience-rail">
                   <span className="role-dot" aria-hidden="true" />
                 </div>
@@ -240,12 +248,12 @@ export default function App() {
                     ))}
                   </ol>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
 
           <div className="profile-extras">
-            <article className="edu-band">
+            <Reveal as="article" className="edu-band">
               <div className="edu-mark" aria-hidden="true">
                 <Icons.GraduationCap size={28} weight="bold" />
               </div>
@@ -261,9 +269,9 @@ export default function App() {
                   <span> · {education.dates}</span>
                 </p>
               </div>
-            </article>
+            </Reveal>
 
-            <div className="certs-block">
+            <Reveal className="certs-block" delay={80}>
               <div className="block-head">
                 <h3>
                   <Icons.Certificate size={18} weight="bold" aria-hidden="true" />
@@ -295,9 +303,9 @@ export default function App() {
                   )
                 })}
               </ul>
-            </div>
+            </Reveal>
 
-            <div className="skills-block">
+            <Reveal className="skills-block" delay={140}>
               <div className="block-head">
                 <h3>
                   <Icons.Code size={18} weight="bold" aria-hidden="true" />
@@ -316,12 +324,12 @@ export default function App() {
                   )
                 })}
               </ul>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section id="contact" className="contact-band" aria-labelledby="contact-heading">
-          <div className="contact-inner">
+          <Reveal className="contact-inner">
             <h2 id="contact-heading">Ready for the next role.</h2>
             <p>Open to full-stack roles and product engineering work. Happy to relocate.</p>
             <div className="hero-actions">
@@ -334,7 +342,7 @@ export default function App() {
                 Download CV
               </a>
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
 
