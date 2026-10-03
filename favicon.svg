@@ -1,4 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#1c1915" />
-  <text x="8" y="23" fill="#f3efe7" font-family="Georgia, serif" font-size="18">L</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Lalit Sekhar Behera">
+  <defs>
+    <linearGradient id="bg" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1d5cff"/>
+      <stop offset="1" stop-color="#4f8cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
+  <path
+    fill="#ffffff"
+    d="M9.2 7.2h4.1v13.1h9.5V24H9.2V7.2z"
+  />
 </svg>
