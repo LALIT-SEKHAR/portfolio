@@ -3,6 +3,7 @@ import { certifications, currentRole, education, experiences, skills } from "./c
 import { formatDate } from "./formatDate"
 import { Icons, issuerIcon, skillIcon } from "./icons"
 import { projects } from "./projects"
+import { Mascot } from "./Mascot"
 import { Reveal } from "./Reveal"
 import { ThemeToggle } from "./ThemeToggle"
 import { useTheme } from "./useTheme"
@@ -26,6 +27,7 @@ export default function App() {
 
       <div className="atmosphere" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
+      <Mascot />
 
       <header className="nav-wrap">
         <div className="nav">

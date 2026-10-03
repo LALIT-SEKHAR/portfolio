@@ -1273,6 +1273,351 @@ h1 {
   }
 }
 
+.mascot {
+  --mascot-travel: 1800ms;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform var(--mascot-travel) var(--ease);
+  will-change: transform;
+}
+
+.mascot--walk {
+  transition-timing-function: linear;
+}
+
+.mascot--fly {
+  transition-timing-function: cubic-bezier(0.33, 0.9, 0.28, 1);
+}
+
+.mascot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+.mascot-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 10px 14px rgb(13 46 97 / 0.22));
+  transform-origin: 50% 85%;
+}
+
+.mascot-svg--left {
+  transform: scaleX(-1);
+}
+
+.mascot-figure {
+  transform-origin: 32px 40px;
+}
+
+.mascot--idle .mascot-figure {
+  animation: mascot-idle 2.8s var(--ease) infinite;
+}
+
+.mascot--walk .mascot-figure {
+  animation: mascot-walk-body 0.42s ease-in-out infinite;
+}
+
+.mascot--fly .mascot-figure {
+  animation: mascot-fly-body 0.7s var(--ease) infinite;
+}
+
+.mascot-body {
+  fill: var(--accent);
+}
+
+.mascot-face {
+  fill: var(--surface);
+}
+
+.mascot-eye {
+  fill: var(--navy);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: transform 90ms steps(1, end);
+}
+
+.mascot--blink .mascot-eye {
+  transform: scaleY(0.12);
+}
+
+.mascot-smile {
+  fill: none;
+  stroke: var(--navy);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  transition: opacity 180ms var(--ease);
+}
+
+.mascot-smile--big {
+  opacity: 0;
+  stroke-width: 1.9;
+}
+
+.mascot--smile .mascot-smile:not(.mascot-smile--big) {
+  opacity: 0;
+}
+
+.mascot--smile .mascot-smile--big {
+  opacity: 1;
+}
+
+.mascot-antenna,
+.mascot-antenna-tip {
+  fill: var(--sky);
+  stroke: var(--sky);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.mascot-antenna-tip {
+  animation: mascot-antenna 2.6s var(--ease) infinite;
+}
+
+.mascot-foot,
+.mascot-badge {
+  fill: var(--accent-deep);
+}
+
+.mascot-foot {
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+
+.mascot--walk .mascot-foot--left {
+  animation: mascot-step 0.42s ease-in-out infinite;
+}
+
+.mascot--walk .mascot-foot--right {
+  animation: mascot-step 0.42s ease-in-out infinite reverse;
+}
+
+.mascot--fly .mascot-foot {
+  transform: translateY(-2px);
+}
+
+.mascot-wings {
+  opacity: 0;
+  transform-origin: 32px 32px;
+  transition: opacity 180ms var(--ease);
+}
+
+.mascot--fly .mascot-wings {
+  opacity: 1;
+}
+
+.mascot-wing {
+  fill: rgb(56 189 248 / 0.55);
+  transform-box: fill-box;
+  transform-origin: right center;
+}
+
+.mascot-wing--right {
+  transform-origin: left center;
+}
+
+.mascot--fly .mascot-wing--left {
+  animation: mascot-flap-left 0.28s ease-in-out infinite;
+}
+
+.mascot--fly .mascot-wing--right {
+  animation: mascot-flap-right 0.28s ease-in-out infinite;
+}
+
+.mascot-shadow {
+  fill: rgb(11 31 58 / 0.18);
+  transform-origin: 32px 58px;
+  transition:
+    transform 220ms var(--ease),
+    opacity 220ms var(--ease);
+}
+
+.mascot--fly .mascot-shadow {
+  opacity: 0.45;
+  transform: scale(0.7);
+}
+
+[data-theme="dark"] .mascot-svg {
+  filter: drop-shadow(0 12px 18px rgb(0 0 0 / 0.45));
+}
+
+[data-theme="dark"] .mascot-body {
+  fill: #7aa6ff;
+  stroke: rgb(232 238 248 / 0.28);
+  stroke-width: 1.2;
+}
+
+[data-theme="dark"] .mascot-face {
+  fill: #eef3fb;
+  stroke: rgb(11 31 58 / 0.08);
+  stroke-width: 0.8;
+}
+
+[data-theme="dark"] .mascot-eye {
+  fill: #0b1f3a;
+}
+
+[data-theme="dark"] .mascot-smile {
+  stroke: #0b1f3a;
+}
+
+[data-theme="dark"] .mascot-foot,
+[data-theme="dark"] .mascot-badge {
+  fill: #315fcc;
+}
+
+[data-theme="dark"] .mascot-antenna,
+[data-theme="dark"] .mascot-antenna-tip {
+  fill: #7dd3fc;
+  stroke: #7dd3fc;
+}
+
+[data-theme="dark"] .mascot-shadow {
+  fill: rgb(0 0 0 / 0.45);
+}
+
+[data-theme="dark"] .mascot-wing {
+  fill: rgb(186 214 255 / 0.72);
+  stroke: rgb(232 238 248 / 0.35);
+  stroke-width: 0.8;
+}
+
+.mascot-bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 10px 24px -16px var(--shadow);
+  animation: mascot-bubble 1800ms var(--ease) both;
+}
+
+.mascot-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@keyframes mascot-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes mascot-walk-body {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+}
+
+@keyframes mascot-fly-body {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes mascot-step {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-12deg);
+  }
+}
+
+@keyframes mascot-flap-left {
+  0%,
+  100% {
+    transform: rotate(8deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(-28deg) scaleY(0.85);
+  }
+}
+
+@keyframes mascot-flap-right {
+  0%,
+  100% {
+    transform: rotate(-8deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(28deg) scaleY(0.85);
+  }
+}
+
+@keyframes mascot-antenna {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes mascot-bubble {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px) scale(0.92);
+  }
+  12%,
+  75% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px) scale(0.96);
+  }
+}
+
+@media (max-width: 640px) {
+  .mascot {
+    width: 54px;
+    height: 54px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1289,5 +1634,21 @@ h1 {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .mascot {
+    transition: none;
+  }
+
+  .mascot-svg,
+  .mascot-figure,
+  .mascot-foot,
+  .mascot-wing,
+  .mascot-antenna-tip,
+  .mascot-bubble,
+  .mascot--idle .mascot-figure,
+  .mascot--walk .mascot-figure,
+  .mascot--fly .mascot-figure {
+    animation: none !important;
   }
 }
